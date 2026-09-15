@@ -1,0 +1,76 @@
+# Network Traffic & SOC Investigation
+
+## Incident Scenario
+
+A workstation on the internal network has generated unusual network traffic.
+
+You are the junior SOC analyst assigned to investigate the activity and determine whether it represents a potential security incident.
+
+## Investigation Data
+
+| Time | Source IP | Destination IP | Protocol | Destination Port | Activity |
+|---|---|---|---|---:|---|
+| 09:01 | 192.168.1.25 | 8.8.8.8 | UDP | 53 | DNS query |
+| 09:03 | 192.168.1.25 | 93.184.216.34 | TCP | 80 | HTTP connection |
+| 09:07 | 192.168.1.25 | 185.199.108.153 | TCP | 443 | HTTPS connection |
+| 09:12 | 192.168.1.25 | 10.10.10.20 | TCP | 445 | SMB connection |
+| 09:15 | 192.168.1.25 | 203.0.113.50 | TCP | 4444 | Unexpected connection |
+
+## Analyst Questions
+
+1. What is the source IP address?
+2. Which traffic appears normal?
+3. Which connection appears suspicious?
+4. What is unusual about port 4444?
+5. What indicators of compromise (IOCs) can be identified?
+6. What should the SOC analyst investigate next?
+
+## Initial Assessment
+
+**Status:** Under investigation
+
+**Severity:** To be determined
+
+**Potential IOC:** 203.0.113.50:4444
+
+## Next Steps
+
+Further investigation is required before determining whether the workstation has been compromised.
+
+ ## Investigation Findings
+
+### 1. Source and Destination
+
+The workstation `192.168.1.25` was communicating with the external destination `203.0.113.50`.
+
+### 2. Suspicious Port
+
+The connection used TCP port `4444`.
+
+Port 4444 is not automatically malicious, but it is commonly associated with remote-control and penetration-testing activity. Because the workstation was making an unexpected external connection on this port, it required further investigation.
+
+### 3. Process Investigation
+
+The connection was associated with `powershell.exe`.
+
+PowerShell is a legitimate Windows administration tool, but it can also be abused to execute commands and scripts.
+
+### 4. Encoded PowerShell Command
+
+The PowerShell command used the `-enc` parameter, indicating that the command was encoded.
+
+I used CyberChef's **From Base64** operation to decode the command.
+
+The decoded command contained:
+
+`IEX -NoProfile -WindowStyle Hidden -Command`
+
+### 5. Suspicious Behaviour
+
+The use of `-WindowStyle Hidden` is suspicious because it allows PowerShell to execute without displaying the PowerShell window to the user.
+
+### 6. Analyst Assessment
+
+The activity is suspicious because the workstation is communicating with an external IP address over an unusual port while PowerShell is executing an encoded command with the window hidden.
+
+The evidence does not by itself prove that the workstation is compromised. Further investigation would be required.
