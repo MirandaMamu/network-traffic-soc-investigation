@@ -123,3 +123,16 @@ At 09:15, the workstation was associated with `PowerShell.exe` executing with `-
 The 14-minute gap between the DNS event and the later PowerShell/network activity is noteworthy, but the available evidence does not establish that the two events are directly related.
 
 Additional logs would be required to establish the sequence and relationship between the events.
+
+## Alert Triage and Priority
+
+The activity should be treated as suspicious and investigated further.
+
+The combination of a hidden PowerShell execution, an encoded command, and a network connection to an external destination on port 4444 increases the investigative priority of the alert.
+
+However, the available evidence does not confirm that the workstation has been compromised. The encoded PowerShell command was decoded during the investigation using CyberChef. The decoded value was IEX -NoProfile -WindowStyle HidenCommand. There is currently no DNS domain or response, malware identification, persistence evidence, or confirmed malicious payload in the available data.
+
+Recommended priority: Medium-High.
+
+The priority should be reassessed if additional evidence confirms malicious execution, persistence, credential theft, lateral movement, or other indicators of compromise.
+
