@@ -98,4 +98,18 @@ Because the domain name and DNS response are missing, the DNS event cannot curre
 
 Additional DNS logs or packet capture would be required to determine what domain was queried and what IP address was returned.
 
+## PowerShell Analysis
+
+The workstation executed PowerShell.exe with the following arguments:
+
+- `-NoProfile`
+- `-WindowStyle Hidden`
+- `-enc` (EncodedCommand)
+
+The use of an encoded PowerShell command and a hidden PowerShell window is suspicious because these techniques can reduce visibility during command execution. However, these indicators alone do not prove malicious activity.
+
+The PowerShell execution occurred in the context of a network connection from the workstation to `203.0.113.50:4444`. The combination of the PowerShell execution characteristics and the network connection increases the need for further investigation.
+
+Further evidence, such as the decoded command, process creation logs, endpoint telemetry, and related network activity, would be required to determine the purpose of the PowerShell execution.
+
 
