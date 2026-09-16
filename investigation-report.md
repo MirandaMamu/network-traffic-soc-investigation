@@ -75,7 +75,7 @@ The activity is suspicious because the workstation is communicating with an exte
 
 The evidence does not by itself prove that the workstation is compromised. Further investigation would be required.
 
-# Next Investigation Steps
+## Next Investigation Steps
 
 The next step would be to correlate the available evidence with additional security telemetry.
 
@@ -89,4 +89,13 @@ Recommended checks include:
 - Review the user's recent activity for signs of phishing or credential compromise.
 
 These checks would help determine whether the observed activity is an isolated event or part of a broader security incident.
+
+## Evidence Gap
+
+The available evidence records a DNS query from the workstation to 8.8.8.8 over port 53 at 09:01, but the queried domain name is not available.
+
+Because the domain name and DNS response are missing, the DNS event cannot currently be correlated with the later connection to 203.0.113.50:4444.
+
+Additional DNS logs or packet capture would be required to determine what domain was queried and what IP address was returned.
+
 
