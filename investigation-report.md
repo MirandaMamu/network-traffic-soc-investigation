@@ -112,4 +112,14 @@ The PowerShell execution occurred in the context of a network connection from th
 
 Further evidence, such as the decoded command, process creation logs, endpoint telemetry, and related network activity, would be required to determine the purpose of the PowerShell execution.
 
+## Timeline Analysis
 
+The available evidence shows two relevant events involving the same workstation, `192.168.1.25`.
+
+At 09:01, the workstation generated a DNS query to `8.8.8.8` over port 53. The queried domain and DNS response are not available in the evidence.
+
+At 09:15, the workstation was associated with `PowerShell.exe` executing with `-NoProfile`, `-WindowStyle Hidden`, and `-enc`. A network connection to `203.0.113.50` over port 4444 was also observed.
+
+The 14-minute gap between the DNS event and the later PowerShell/network activity is noteworthy, but the available evidence does not establish that the two events are directly related.
+
+Additional logs would be required to establish the sequence and relationship between the events.
