@@ -74,3 +74,19 @@ The use of `-WindowStyle Hidden` is suspicious because it allows PowerShell to e
 The activity is suspicious because the workstation is communicating with an external IP address over an unusual port while PowerShell is executing an encoded command with the window hidden.
 
 The evidence does not by itself prove that the workstation is compromised. Further investigation would be required.
+
+# Next Investigation Steps
+
+The next step would be to correlate the available evidence with additional security telemetry.
+
+Recommended checks include:
+
+- Review authentication logs for unusual or failed login activity.
+- Check DNS queries associated with the suspicious activity.
+- Review network connections and identify the destination IP address and port.
+- Determine whether the workstation communicated with other suspicious hosts.
+- Check endpoint security alerts for related activity.
+- Review the user's recent activity for signs of phishing or credential compromise.
+
+These checks would help determine whether the observed activity is an isolated event or part of a broader security incident.
+
