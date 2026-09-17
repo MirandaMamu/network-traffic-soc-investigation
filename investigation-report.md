@@ -1,6 +1,21 @@
+# SOC Investigation Report
+
+> **Note:** This is a simulated SOC investigation created for cybersecurity learning and portfolio demonstration.
+
+## Executive Summary
+
+This investigation examined suspicious PowerShell activity involving a Base64-encoded command on a Windows endpoint.
+
+The investigation included PowerShell command analysis, DNS activity review, network-traffic review, indicator identification, and incident assessment.
+
+The available evidence identified suspicious activity requiring further investigation, but did not conclusively establish endpoint compromise or malicious external communication.
+
+The investigation demonstrates a structured SOC workflow of alert analysis, evidence collection, correlation, assessment, and recommended response actions.
+
+
 # Network Traffic & SOC Investigation
 
-## Incident Scenario
+## 1. Incident Scenario
 
 A workstation on the internal network has generated unusual network traffic.
 
@@ -148,4 +163,137 @@ Recommended next actions are to collect additional endpoint telemetry, review th
 
 **Assessment: Suspicious activity requiring further investigation and escalation.**
 
+
+## 2. DNS Investigation
+
+### Objective
+
+Determine whether the suspicious PowerShell activity was associated with any DNS queries or external domains.
+
+### Investigation
+
+DNS activity can help identify systems contacted by a potentially compromised host. During the investigation, DNS queries should be reviewed for suspicious domains, unusual hostnames, or connections that may support the PowerShell activity identified earlier.
+
+### Findings
+
+No confirmed malicious domain has been identified at this stage.
+
+Further analysis of network traffic and DNS logs is required to determine whether the PowerShell activity resulted in external communication.
+
+## 3. Network Traffic Investigation
+
+### Objective
+
+Determine whether the endpoint established any network connections associated with the suspicious PowerShell activity.
+
+### Investigation
+
+Network traffic should be reviewed for:
+
+- Source and destination IP addresses
+- Destination ports
+- Protocols used
+- External connections
+- Unusual or unexpected communication
+- Connections occurring around the time of the PowerShell activity
+
+### Findings
+
+No confirmed malicious network connection has been identified at this stage.
+
+The available evidence does not currently establish that the suspicious PowerShell activity resulted in communication with a malicious external host.
+
+Further network analysis would be required to confirm whether any outbound connections were made.
+
+## 4. PowerShell Analysis and Indicators of Compromise
+
+### Objective
+
+Analyse the suspicious PowerShell command and identify any indicators that could support further investigation.
+
+### Analysis
+
+The PowerShell command was Base64 encoded, which can be used to obscure command content and make analysis more difficult.
+
+The encoded command was decoded during the investigation. The decoded content included PowerShell execution parameters and behaviour that warranted further investigation.
+
+### Indicators of Compromise
+
+The following indicators were identified from the available evidence:
+
+- PowerShell execution
+- Base64-encoded command
+- Suspicious command-line activity
+- Hidden PowerShell execution parameters
+
+### Assessment
+
+The use of an encoded PowerShell command is a notable security indicator. However, the available evidence alone is not sufficient to confirm that the endpoint was compromised.
+
+Additional telemetry, including process creation events, network connections, and endpoint logs, should be correlated before making a final determination.
+
+## 5. Incident Timeline
+
+| Stage | Activity | Significance |
+|---|---|---|
+| 1 | Suspicious PowerShell activity detected | Initial security indicator |
+| 2 | PowerShell command identified as Base64 encoded | Obfuscation technique identified |
+| 3 | Encoded command decoded for analysis | Command behaviour could be reviewed |
+| 4 | DNS activity reviewed | No confirmed malicious domain identified |
+| 5 | Network activity reviewed | No confirmed malicious external connection identified |
+| 6 | Evidence correlated | Further telemetry required for confirmation |
+
+### Timeline Assessment
+
+The investigation began with suspicious PowerShell activity and progressed through command analysis, DNS review, and network-traffic investigation.
+
+Based on the available evidence, suspicious activity was identified, but there is insufficient evidence to conclusively determine that the endpoint was compromised.
+
+## 6. Incident Assessment
+
+### Severity
+
+**Medium — Suspicious Activity Requiring Further Investigation**
+
+### Rationale
+
+The investigation identified suspicious PowerShell execution involving an encoded command. This behaviour warrants investigation because PowerShell can be used to execute commands and scripts on Windows systems.
+
+However, the available evidence does not confirm successful compromise, malicious network communication, or data exfiltration.
+
+### Recommended Actions
+
+1. Continue monitoring the affected endpoint.
+2. Review additional Windows and PowerShell event logs.
+3. Correlate process creation events with network activity.
+4. Investigate any associated IP addresses or domains.
+5. Check for persistence mechanisms or additional suspicious processes.
+6. Escalate the incident if additional evidence confirms malicious activity.
+
+## 7. Containment and Remediation
+
+### Containment
+
+If additional evidence confirms malicious activity, the affected endpoint should be isolated from the network to prevent potential lateral movement or further communication with external systems.
+
+The suspicious PowerShell activity should also be investigated and terminated where appropriate.
+
+### Remediation
+
+Recommended remediation actions include:
+
+- Review and remove any confirmed malicious files or scripts.
+- Investigate and remove persistence mechanisms if identified.
+- Reset affected credentials if compromise is confirmed.
+- Apply relevant security patches and updates.
+- Review PowerShell logging and security controls.
+- Verify that endpoint protection is functioning correctly.
+
+### Lessons Learned
+
+This investigation demonstrated the importance of correlating multiple sources of evidence rather than relying on a single alert.
+
+Key indicators included encoded PowerShell activity, DNS activity, and potential network communication.
+
+The investigation also demonstrated the value of combining endpoint and network analysis when investigating suspicious activity.
 
